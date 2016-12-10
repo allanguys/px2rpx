@@ -30,8 +30,8 @@ textarea {width:100%;height:180px;padding:10px;}
 
     <body>
       <a href="https://github.com/allanguys/px2rpx" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0; width: 149px; height: 149px;" src="http://aral.github.com/fork-me-on-github-retina-ribbons/right-graphite@2x.png" alt="Fork me on GitHub"></a>
-           <div class="alert alert-success" style="display:none">主人，转换任务已经全部达成 :p</div>
-           <div class="alert alert-danger" style="display:none"> 是不是点错转换按钮了？奴家找不到一个可以转换的数值单位 :( </div>
+           <div class="alert alert-success" style="display:none"></div>
+           <div class="alert alert-danger" style="display:none">是不是点错转换按钮了？奴家找不到一个可以转换的数值单位 :( </div>
 
         <div class="container">
             <div class="panel panel-default">
@@ -110,21 +110,31 @@ textarea {width:100%;height:180px;padding:10px;}
                       convertDoneDom.val(cssFn.apply(null, [convertDoneVal+convertBeforeVal,$(CSS[i]).attr('data-type')]));
                    };
                 };
-                tips(successDom);
+                if ($('#designWidth').val() == 750) {
+                  tips(successDom,'主人，转换任务已经全部达成 :p。再偷偷告诉你，如果设计稿是750px,可以直接1比1写wxss哦~');
+                }else{
+                   tips(successDom,'主人，转换任务已经全部达成 :p');
+                };
+                
                 
 
             };
             function getConvertNum(num,toUnit){
                 num = num.match(/\d+/g)[0];
-                dw = $('#designWidth').val()/2;
+                dw = $('#designWidth').val();
+
                 if (toUnit == 'rpx') {
                    return parseFloat((num * (750/dw)).toFixed(2))+'rpx';
                 }else{
                    return parseFloat((num * (dw/750)).toFixed(2))+'px';
                 };
             }
-            function tips(dom){
+            function tips(dom,text){
                 dom.stop().fadeIn('200');
+                if (text != undefined) {
+                   dom.html(text)
+                };
+               
                 setTimeout(function(){if (dom.css('display') !== 'none'){dom.fadeOut('200')};},2000) ;
             }
 
